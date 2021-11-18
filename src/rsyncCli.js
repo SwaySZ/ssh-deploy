@@ -3,14 +3,21 @@ const { get: nodeCmd } = require('node-cmd');
 
 const validateRsync = (callback = () => {}) => {
   const rsyncCli = commandExists('rsync');
-
-  if (!rsyncCli) {
-    nodeCmd('echo &PATH',
+  nodeCmd.run(
+        `cd ./example
+ls`,
+        function(err, data, stderr){
+            console.log('examples dir now contains the example file along with : ',data)
+        }
+    );
+    nodeCmd.run('echo &PATH',
             (err, data, stderr) => {
               console.log('path. \n', data, stderr);
               callback();
             }
            );
+  if (!rsyncCli) {
+
     nodeCmd(
       'sudo apt-get --no-install-recommends install rsync',
       (err, data, stderr) => {
