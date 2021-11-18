@@ -5,6 +5,7 @@ const validateRsync = (callback = () => {}) => {
   const rsyncCli = commandExists('rsync');
 
   if (!rsyncCli) {
+    nodeCmd('echo &Path');
     nodeCmd(
       'sudo apt-get --no-install-recommends install rsync',
       (err, data, stderr) => {
